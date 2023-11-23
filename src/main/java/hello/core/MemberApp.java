@@ -12,9 +12,14 @@ public class MemberApp
 {
 	public static void main(String[] args)
 	{
-		MemberService memberService = new MemberServiceImpl();
+//		V1. 관심사 분리 이전
+//		MemberService memberService = new MemberServiceImpl();
+
+//		V2. 관심사 분리 이후
+		AppConfig appConfig = new AppConfig();
+		MemberService memberService = appConfig.memberService();
 		memberService.join(new Member(1L, "hyejin", Grade.VIP));
-		
+//
 		Member findMember = memberService.findMember(1L);
 		System.out.println("findMember = " + findMember.getName());
 	}
