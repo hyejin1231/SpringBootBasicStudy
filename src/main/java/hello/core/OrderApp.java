@@ -1,5 +1,8 @@
 package hello.core;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import hello.core.member.Grade;
 import hello.core.member.Member;
 import hello.core.member.MemberService;
@@ -17,9 +20,14 @@ public class OrderApp
 //		OrderService orderService = new OrderServiceImpl();
 		
 		// V2. 관심사 분리 이후
-		AppConfig appConfig = new AppConfig();
-		MemberService memberService = appConfig.memberService();
-		OrderService orderService = appConfig.orderService();
+//		AppConfig appConfig = new AppConfig();
+//		MemberService memberService = appConfig.memberService();
+//		OrderService orderService = appConfig.orderService();
+		
+		// V3. 스프링으로 전환
+		ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+		MemberService memberService = ac.getBean("memberService", MemberService.class);
+		OrderService orderService = ac.getBean("orderService", OrderService.class);
 		
 		Long memberId= 1L;
 		Member member = new Member(memberId, "hyejin", Grade.VIP);
